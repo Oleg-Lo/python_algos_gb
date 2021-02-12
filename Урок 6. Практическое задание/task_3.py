@@ -5,3 +5,28 @@
 Придумать как это решить!
 Есть очень простое решение!
 """
+
+from memory_profiler import profile
+
+
+@profile
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+
+
+# factorial(4)
+# при таком способе профилирования возникает своя таблица на каждый рекурсивный вызов нашей функции
+#
+# а вот если профилировать не саму рекурсивную функцию а функцию которая ее вызывает то таблица одна
+@profile
+def my_func(N):
+    def factorial1(n):
+        if n == 0:
+            return 1
+            return n * factorial1(n)
+    return factorial1(N)
+
+
+my_func(4)
